@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editText_producto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="134dp"
+        android:layout_marginEnd="99dp"
+        android:ems="10"
+        android:hint="nombre producto"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editText_cantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editText_producto"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="247dp"
+        android:layout_marginEnd="95dp"
+        android:ems="10"
+        android:hint="cantidad"
+        android:inputType="textPersonName|number" />
+
+    <EditText
+        android:id="@+id/editText_precio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText_cantidad"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="371dp"
+        android:layout_marginEnd="2dp"
+        android:ems="10"
+        android:hint="precio"
+        android:inputType="textPersonName|number|numberSigned|numberDecimal" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="141dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="134dp"
+        android:text="Productos" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="157dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="203dp"
+        android:layout_marginEnd="123dp"
+        android:text="cantidad" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="154dp"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="314dp"
+        android:layout_marginEnd="129dp"
+        android:text="Precio C/IVA" />
+
+    <Button
+        android:id="@+id/button3"
+        android:onClick="vender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_precio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="Agregar" />
+</RelativeLayout>

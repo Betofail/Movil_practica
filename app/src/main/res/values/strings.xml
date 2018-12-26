@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Movil_practica</string>
+    <string name="cliente_text">CLIENTE</string>
+    <string name="consultas_text">CONSULTAS</string>
+    <string name="productos_text">PRODUCTOS</string>
+    <string name="ventas_text">VENTAS</string>
+</resources>
