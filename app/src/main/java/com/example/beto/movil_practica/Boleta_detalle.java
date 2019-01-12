@@ -19,67 +19,19 @@ public class Boleta_detalle {
     private int monto;
 
     //crear tabla SQL
-    public static final String CREATE_TABLE = "CREATE TABLE" + TABLE_NAME + "("
-            + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_CODE + "INTEGER NOT NULL,"
-            + COLUMN_ID_BT + "INTEGER NOT NULL,"
-            + COLUMN_STOCK + "INTEGER NOT NULL,"
-            + COLUMN_STOCK + "INTEGER NOT NULL,"
-            + "FOREIGN KEY("+ COLUMN_ID_BT + ")" +
-            "REFERENCE Boleta_cabesera(" + COLUMN_ID_BT +");";
+    public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_CODE + " INTEGER NOT NULL,"
+            + COLUMN_ID_BT + " INTEGER NOT NULL,"
+            + COLUMN_STOCK + " INTEGER NOT NULL,"
+            + COLUMN_AMOUNT + " INTEGER NOT NULL,"
+            + "FOREIGN KEY("+ COLUMN_ID_BT + ") " +
+            "REFERENCES Boleta_cabesera(" + COLUMN_ID_BT +"))";
 
-    public Boleta_detalle(int id,int codigo_BT, int codigo, int cantidad, int monto) {
-        this.id = id;
-        this.codigo = codigo;
-        this.cantidad = cantidad;
-        this.monto = monto;
-        this.codigo_BT = codigo_BT;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public int getCodigo_BT() {
-        return codigo_BT;
-    }
-
-    public void setCodigo_BT(int codigo_BT) {
-        this.codigo_BT = codigo_BT;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public int getMonto() {
-        return monto;
-    }
-
-    public void setMonto(int monto) {
-        this.monto = monto;
-    }
 
     public ContentValues dataInsert(int codigo, int codigo_BT, int cantidad, int monto){
         ContentValues values = new ContentValues();
         values.put("tabla",TABLE_NAME);
-
         values.put(COLUMN_AMOUNT,monto);
         values.put(COLUMN_CODE,codigo);
         values.put(COLUMN_STOCK,cantidad);
