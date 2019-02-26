@@ -2,23 +2,26 @@ package com.example.beto.movil_practica;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PopUp extends Activity {
     private EditText producto;
     private EditText cantidad;
     private EditText precio;
     public TextView nombre_producto;
-    private SqlDatabaseHelper helper = new SqlDatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class PopUp extends Activity {
         cantidad = findViewById(R.id.editText_cantidad);
         precio = findViewById(R.id.editText_precio);
         nombre_producto = findViewById(R.id.name_product);
-        final SQLiteDatabase database = helper.getReadableDatabase();
+
 
         producto.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -39,15 +42,23 @@ public class PopUp extends Activity {
                 }
                 else {
                     if (!hasFocus) {
-                        Cursor cursor = database.rawQuery
-                                ("SELECT  nombre from Producto where codigo = " + producto.getText().toString(), null);
-                        if (cursor.getCount() != 0) {
-                            cursor.moveToNext();
-                            nombre_producto.setText(cursor.getString(0));
-                        } else {
-                            producto.setError("El producto no existe");
-                            nombre_producto.setText("");
-                        }
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Producto");
+                        database.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.hasChild(producto.getText().toString())){
+                                    nombre_producto.setText(dataSnapshot.child(producto.getText().toString()).child("nombre").getValue().toString());
+                                }else{
+                                    producto.setError("no existe el producto");
+                                    nombre_producto.setText("");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }
             }

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "286682442843",
+    "firebase_url": "https://movileventas.firebaseio.com",
+    "project_id": "movileventas",
+    "storage_bucket": "movileventas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286682442843:android:52c23be542a972ea",
+        "android_client_info": {
+          "package_name": "com.example.beto.movil_practica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286682442843-kaudnrm2c9pd0g6u6g7faepup47vqjdl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beto.movil_practica",
+            "certificate_hash": "cfb1b999f3f8c7881bda3fa4b27c0999e85f2190"
+          }
+        },
+        {
+          "client_id": "286682442843-8qg3r0k74qq6a5rev7brpcdlrt33t0at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaFsbukr0qhYHgQQwPkh_nzhesG7YJ4VU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286682442843-8qg3r0k74qq6a5rev7brpcdlrt33t0at.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,10 +10,9 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class Home extends AppCompatActivity {
+import com.google.firebase.database.FirebaseDatabase;
 
-    private SqlDatabaseHelper db = new SqlDatabaseHelper(this);
-    private Cliente cliente = new Cliente();
+public class Home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

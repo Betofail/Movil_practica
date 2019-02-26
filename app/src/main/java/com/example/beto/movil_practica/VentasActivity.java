@@ -33,10 +33,9 @@ public class VentasActivity extends AppCompatActivity {
     private ArrayAdapter<String> arrayAdapter;
     private TextView total;
     private TextView monto_deuda;
-    private EditText cliente;
+    private TextView cliente;
     private ArrayList<Integer> total_venta;
-    private SqlDatabaseHelper db = new SqlDatabaseHelper(this);
-    private TextView nombre_cliente;
+    private String rut_cliente;
 
 
     @Override
@@ -64,10 +63,20 @@ public class VentasActivity extends AppCompatActivity {
         total = findViewById(R.id.totalVenta);
         listView = findViewById(R.id.list_producto);
         list = new ArrayList<String>();
+        TextView textView = findViewById(R.id.client_name_text);
         lista_productos = new ArrayList<>();
         total_venta = new ArrayList<Integer>();
-        arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_activated_1,list);
+        arrayAdapter = new ArrayAdapter<String>(VentasActivity.this,android.R.layout.simple_list_item_activated_1,list);
         monto_deuda = findViewById(R.id.monto_deuda_cliente);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null){
+
+        }else{
+            textView.setText(bundle.getString("nombre"));
+            monto_deuda.setText(bundle.getString("deuda"));
+            rut_cliente = bundle.getString("rut");
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -92,35 +101,6 @@ public class VentasActivity extends AppCompatActivity {
             alert.show();
             }
         });
-
-        cliente = findViewById(R.id.editText_cliente);
-        cliente.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (TextUtils.isEmpty(cliente.getText().toString())) {
-                    cliente.setError("debe ingresar un cliente");
-                } else {
-                    SQLiteDatabase myDB = db.getReadableDatabase();
-                    String rut = cliente.getText().toString();
-                    Cursor data = myDB.rawQuery("select venta,nombre from Cliente where rut = " + "'" + rut + "'" + ";", null);
-                    if (data.getCount() == 0 || data.getCount() == -1) {
-                        monto_deuda = findViewById(R.id.monto_deuda_cliente);
-                        monto_deuda.setText("no existe el cliente");
-                    } else {
-                        data.moveToNext();
-                        monto_deuda = findViewById(R.id.monto_deuda_cliente);
-                        nombre_cliente = findViewById(R.id.client_name);
-                        if (data.getString(0) == null) {
-                            monto_deuda.setText("0");
-                            nombre_cliente.setText("");
-                        } else {
-                            monto_deuda.setText(data.getString(0));
-                            nombre_cliente.setText(data.getString(1));
-                        }
-                    }
-                }
-            }
-        });
     }
 
     public void home_activity(){
@@ -131,6 +111,11 @@ public class VentasActivity extends AppCompatActivity {
     public void addProducto(View view){
         Intent intent = new Intent(this,PopUp.class);
         startActivityForResult(intent,123);
+    }
+
+    public void clientList(View view){
+        Intent intent = new Intent(this,Client_list.class);
+        startActivity(intent);
     }
 
 
@@ -156,19 +141,36 @@ public class VentasActivity extends AppCompatActivity {
         }
     }
 
+
     public void pagar(View view){
-        cliente = findViewById(R.id.editText_cliente);
-        monto_deuda = findViewById(R.id.totalVenta);
-        if (monto_deuda.getText().toString().equals("0") || monto_deuda.getText().toString().equals("$0")){
+        cliente = findViewById(R.id.client_name_text);
+        monto_deuda = findViewById(R.id.monto_deuda_cliente);
+        if (TextUtils.isEmpty(cliente.getText().toString())){
+            Toast.makeText(this, "Ingrese un cliente", Toast.LENGTH_SHORT).show();
+        }
+        else if (total.getText().toString().equals("0") || total.getText().toString().equals("$0")){
             Toast.makeText(this, "ingrese productos para realizar la venta", Toast.LENGTH_SHORT).show();
         }
+        else if (monto_deuda.getText().toString().equals("no existe el cliente")){
+            Toast.makeText(this, "ingrese un cliente correcto", Toast.LENGTH_SHORT).show(); 
+        }
         else {
-            Intent intent  = new Intent(this,PopUpVenta.class);
-            intent.putExtra("total",total.getText().toString());
-            intent.putExtra("rut", cliente.getText().toString());
-            intent.putExtra("deuda",monto_deuda.getText().toString());
-            intent.putExtra("productos",lista_productos);
-            startActivity(intent);
+            if (monto_deuda.getText().toString().equals("Nuevo")){
+                String deuda = "0";
+                Intent intent  = new Intent(this,PopUpVenta.class);
+                intent.putExtra("total",total.getText().toString());
+                intent.putExtra("rut", rut_cliente);
+                intent.putExtra("deuda",deuda);
+                intent.putExtra("productos",lista_productos);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(this, PopUpVenta.class);
+                intent.putExtra("total", total.getText().toString());
+                intent.putExtra("rut",rut_cliente);
+                intent.putExtra("deuda", monto_deuda.getText().toString());
+                intent.putExtra("productos", lista_productos);
+                startActivity(intent);
+            }
         }
 
     }
